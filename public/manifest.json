@@ -1,0 +1,15 @@
+{
+  "short_name": "IMH",
+  "name": "Insurance Marketing Hub",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0B1220",
+  "theme_color": "#2563EB",
+  "display": "standalone"
+}

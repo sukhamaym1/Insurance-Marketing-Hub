@@ -40,18 +40,29 @@ export const PersonalizationStudioPage: React.FC = () => {
   useEffect(() => {
     const computeFitZoom = () => {
       const screenWidth = window.innerWidth;
-      // Estimate available canvas width: 
-      // Mobile: full width minus padding (~32px)
-      // Desktop: full width minus sidebars (~320 + ~288 + padding)
+      const screenHeight = window.innerHeight;
+      
+      // Calculate available space
+      // Left sidebar: 320px, Right sidebar: 288px (only on lg: 1024px+)
       const availableWidth = screenWidth >= 1024 ? screenWidth - 320 - 288 - 64 : screenWidth - 32;
       
-      const fitZoom = (availableWidth / activePreset.width) * 0.9; // 90% of available space
+      // Top navbar: 64px, Toolbar: ~64px, padding: ~64px
+      // Mobile bottom nav: ~64px (only on < 1024px)
+      const verticalPadding = screenWidth >= 1024 ? 128 : 192;
+      const availableHeight = screenHeight - verticalPadding;
+      
+      const scaleX = availableWidth / activePreset.width;
+      const scaleY = availableHeight / activePreset.height;
+      
+      const fitZoom = Math.min(scaleX, scaleY) * 0.95; // 95% of available space
       
       // Keep it within reasonable bounds
       setZoomLevel(Math.min(Math.max(fitZoom, 0.1), 1.5));
     };
     
     computeFitZoom();
+    window.addEventListener('resize', computeFitZoom);
+    return () => window.removeEventListener('resize', computeFitZoom);
   }, [activePreset.width, activePreset.height]);
 
   // Sync layers when templateId changes

@@ -16,7 +16,7 @@ export const PersonalizationStudioPage: React.FC = () => {
   const navigate = useNavigate();
   const templateId = searchParams.get('templateId') || 'tpl-life-01';
 
-  const { applyBrandKitToLayers } = useBrandKit();
+  const { brandKit, applyBrandKitToLayers } = useBrandKit();
   const { recordDownload, saveDraft, addToast } = useTemplateContext();
 
   const targetTemplate = MOCK_TEMPLATES.find((t) => t.id === templateId) || MOCK_TEMPLATES[0];
@@ -76,6 +76,21 @@ export const PersonalizationStudioPage: React.FC = () => {
     setHistory([fresh]);
     setHistoryStep(0);
   }, [templateId]);
+
+  // Auto-apply brand kit when brand kit changes
+  useEffect(() => {
+    if (layers.length > 0) {
+      const personalized = applyBrandKitToLayers(layers);
+      if (JSON.stringify(personalized) !== JSON.stringify(layers)) {
+        setLayers(personalized);
+        setHistory(prev => {
+          const newHistory = [...prev];
+          newHistory[historyStep] = personalized;
+          return newHistory;
+        });
+      }
+    }
+  }, [brandKit]);
 
   const pushHistory = (newLayers: KonvaLayer[]) => {
     const nextHistory = history.slice(0, historyStep + 1);

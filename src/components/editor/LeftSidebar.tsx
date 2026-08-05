@@ -119,16 +119,16 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
           <div className="space-y-4">
             <div className="p-3 bg-blue-950/40 border border-blue-800/60 rounded-xl">
               <h4 className="text-xs font-bold text-blue-300 flex items-center gap-1.5 mb-1">
-                <Sparkles className="w-4 h-4 text-blue-400" /> Auto-Personalization Engine
+                <Sparkles className="w-4 h-4 text-blue-400" /> Auto-Personalized
               </h4>
               <p className="text-[11px] text-slate-400 leading-normal">
-                Clicking below instantly injects your profile photo, logo, contact details, and brand colors onto this template.
+                Your profile photo, logo, contact details, and brand colors have been automatically injected into this template.
               </p>
               <button
                 onClick={onApplyBrandKit}
-                className="mt-3 w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-glow flex items-center justify-center gap-1.5 transition"
+                className="mt-3 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold flex items-center justify-center gap-1.5 transition"
               >
-                <Check className="w-4 h-4" /> Auto-Apply Brand Kit
+                <Check className="w-4 h-4" /> Re-apply Brand Kit
               </button>
             </div>
 
